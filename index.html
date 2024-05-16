@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY STOP WATCH</title>
+</head>
+<body>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+         body{
+         
+            color:#f8f8f8;
+            height:100vh;
+            background-color: rgb(11, 11, 11);
+            display:flex;
+            align-items: center;
+            justify-content: center;
+           
+         }
+         .container{
+           
+            text-align:center;
+           
+           
+         }
+         .result{
+            font-size: 3rem;
+            color: rgb(33, 31, 31);
+            background-color: rgb(248, 240, 9);
+            padding: 30px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;}
+         
+       .button button{
+        font-size:16px;
+            outline:none;
+            color: black;
+            border: none;
+            height:2rem;
+            width: 100px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+       }
+       button:hover{
+            background-color: rgb(42, 189, 211);
+            color: rgb(68, 21, 195);
+       }
+    </style>
+    <div class="container">
+        <div class="result">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span>
+        </div>
+        <div class="button">
+            <button id="start">start</button>
+            <button id="pause">pause</button>
+            <button id="reset">reset</button>
+        </div>
+    </div>
+    <script>
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+        let milliseconds = 0;
+        let interval;
+
+        const hoursContainer = document.getElementById("hours");
+        const minutesContainer = document.getElementById("minutes");  
+        const secondsContainer = document.getElementById("seconds");  
+        const millisecondsContainer = document.getElementById("milliseconds"); 
+        const start = document.getElementById("start");
+        const pause = document.getElementById("pause");
+        const reset = document.getElementById("reset");
+
+        const startTimer = () => {
+            clearInterval(interval);
+            interval = setInterval(startWatch, 10);
+        }
+
+        const stopTimer = () => {
+            clearInterval(interval);
+        }
+
+        const resetTimer = () => {
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+
+            millisecondsContainer.innerHTML = "00";
+            secondsContainer.innerHTML = "00";
+            minutesContainer.innerHTML = "00";
+            hoursContainer.innerHTML = "00";
+            clearInterval(interval);
+        }
+
+        function startWatch(){
+            milliseconds++;
+            if(milliseconds <= 9){
+                millisecondsContainer.innerHTML = `0${milliseconds}`;
+            }
+            if(milliseconds > 9){
+                millisecondsContainer.innerHTML = milliseconds;
+            }
+            if(milliseconds > 99){
+                milliseconds = 0;
+                millisecondsContainer.innerHTML = "00";
+                seconds++;
+            }
+            if(seconds <= 9){
+                secondsContainer.innerHTML = `0${seconds}`;
+            }
+            if(seconds > 9){
+                secondsContainer.innerHTML = seconds;
+            }
+            if(seconds > 59){
+                seconds = 0;
+                secondsContainer.innerHTML = "00";
+                minutes++;
+            }
+            if(minutes <= 9){
+                minutesContainer.innerHTML = `0${minutes}`;
+            }
+            if(minutes > 9){
+                minutesContainer.innerHTML = minutes;
+            }
+            if(minutes > 59){
+                minutes = 0;
+                minutesContainer.innerHTML = "00";
+                hours++;
+            }
+            if(hours <= 9){
+                hoursContainer.innerHTML = `0${hours}`;
+            }
+            if(hours > 9){
+                hoursContainer.innerHTML = hours;
+            }
+        }
+
+        start.addEventListener("click", startTimer);
+        pause.addEventListener("click", stopTimer);
+        reset.addEventListener("click", resetTimer);
+    </script>
+</body>
+</html>
